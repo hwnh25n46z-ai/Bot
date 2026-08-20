@@ -16,7 +16,7 @@ URL_COURSE_2 = "https://classes.cornell.edu/browse/roster/FA26/class/ECE/2300"
 NAME_COURSE_2 = "ECE 2300 (LEC)"
 
 # Course 3: Checking specifically for LECTURES
-URL_COURSE_3 = "https://classes.cornell.edu/browse/roster/FA26/class/PHYS/2213”
+URL_COURSE_3 = "https://classes.cornell.edu/browse/roster/FA26/class/PHYS/2213"
 NAME_COURSE_3 = "PHYS 2213 (LEC)"
 # -------------------------------------
 
