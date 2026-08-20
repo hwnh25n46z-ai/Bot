@@ -81,5 +81,3 @@ while True:
         
     time.sleep(60)
         # Add these lines at the very bottom inside the while loop:
-    print("Single check run completed successfully.")
-    break 
