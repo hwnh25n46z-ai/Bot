@@ -1,7 +1,9 @@
 name: Run Cornell Course Checker
 on:
+  push:                # This forces it to run whenever you save a change
+  workflow_dispatch:   # This adds a manual 'Play' button to your screen
   schedule:
-    - cron: '*/5 * * * *' # Checks automatically every few minutes
+    - cron: '*/5 * * * *'
 jobs:
   check-course:
     runs-on: ubuntu-latest
