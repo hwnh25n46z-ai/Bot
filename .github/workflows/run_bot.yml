@@ -1,0 +1,16 @@
+name: Run Cornell Course Checker
+on:
+  schedule:
+    - cron: '*/5 * * * *' # Checks automatically every few minutes
+jobs:
+  check-course:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Run Script
+        run: python course_check.py
