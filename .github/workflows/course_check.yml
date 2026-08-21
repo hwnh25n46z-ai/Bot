@@ -1,8 +1,13 @@
 name: Cornell Course Alert
 
 on:
-  push:
+  schedule:
+    - cron: "*/5 * * * *"
   workflow_dispatch:
+
+concurrency:
+  group: cornell-course-alert
+  cancel-in-progress: false
 
 jobs:
   check-courses:
@@ -17,9 +22,9 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Run course checker
+      - name: Run Claude's course checker
         env:
           SMS_GATEWAY: ${{ secrets.SMS_GATEWAY }}
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-        run: python course_alert.py
+        run: python course_check.py
