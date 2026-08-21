@@ -80,4 +80,5 @@ while True:
         print(f"Error scanning roster: {e}")
         
     time.sleep(60)
+    break
         # Add these lines at the very bottom inside the while loop:
