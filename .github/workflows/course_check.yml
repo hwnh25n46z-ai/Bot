@@ -18,7 +18,7 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Run course checker
+      - name: Run course_alert.py
         env:
           SMS_GATEWAY: ${{ secrets.SMS_GATEWAY }}
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
