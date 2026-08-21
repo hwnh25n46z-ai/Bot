@@ -23,4 +23,4 @@ jobs:
           SMS_GATEWAY: ${{ secrets.SMS_GATEWAY }}
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-        run: python course_alert.py
+        run: python course_check.py
