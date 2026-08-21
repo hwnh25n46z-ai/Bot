@@ -1,9 +1,9 @@
 name: Cornell Course Alert
 
 on:
-  schedule:
-    - cron: "* * * * *"
   workflow_dispatch:
+  schedule:
+    - cron: "*/5 * * * *"
 
 jobs:
   check-courses:
@@ -17,6 +17,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
+
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip
 
       - name: Run course checker
         env:
