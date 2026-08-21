@@ -8,9 +8,9 @@ from email.mime.text import MIMEText
 
 # --- CONFIGURATION ---
 # Secrets come from GitHub Actions environment variables (set these as repo secrets).
-SMS_GATEWAY = os.environ.get("4439466839@txt.att.net")          # e.g. "1234567890@txt.att.net"
-GMAIL_USER = os.environ.get("skitzwasatakenusername@gmail.com")            # e.g. "yourbot@gmail.com"
-GMAIL_APP_PASSWORD = os.environ.get("wttf bkuz zckz hqag")  # 16-char Gmail App Password, NOT your normal password
+SMS_GATEWAY = os.environ.get("SMS_GATEWAY")          # e.g. "1234567890@txt.att.net"
+GMAIL_USER = os.environ.get("GMAIL_USER")            # e.g. "yourbot@gmail.com"
+GMAIL_APP_PASSWORD = os.environ.get("GMAIL_APP_PASSWORD")  # 16-char Gmail App Password, NOT your normal password
 
 ROSTER = "FA26"
 
@@ -27,7 +27,7 @@ API_URL = "https://classes.cornell.edu/api/2.0/search/classes.json"
 def send_text(message):
     """Send an SMS via email-to-text gateway, using a real authenticated SMTP server."""
     if not (SMS_GATEWAY and GMAIL_USER and GMAIL_APP_PASSWORD):
-        print("Missing SMS_GATEWAY / GMAIL_USER / GMAIL_APP_PASSWORD env vars — cannot send text.")
+        print("Missing SMS_GATEWAY / GMAIL_USER / GMAIL_APP_PASSWORD env vars â cannot send text.")
         return
     try:
         msg = MIMEText(message)
@@ -55,18 +55,10 @@ def fetch_subject_json(subject):
 
 def section_is_open(section):
     """
-    Handle a couple of possible field shapes defensively, since Cornell's API
-    has changed field names across versions (openStatus / enrlStat / openStatusText).
-    Run once with a plain print(section) if this stops matching — the API can
-    change without notice.
+    Confirmed against the live API response: openStatus is a string, "O" for
+    open and (presumably) "C" for closed â not a boolean.
     """
-    if "openStatus" in section:
-        return bool(section["openStatus"])
-    if "enrlStat" in section:
-        return str(section["enrlStat"]).upper() == "O"
-    if "openStatusText" in section:
-        return str(section["openStatusText"]).strip().lower() == "open"
-    return False
+    return str(section.get("openStatus", "")).strip().upper() == "O"
 
 
 def check_course(course):
