@@ -5,10 +5,6 @@ on:
     - cron: "*/5 * * * *"
   workflow_dispatch:
 
-concurrency:
-  group: cornell-course-alert
-  cancel-in-progress: false
-
 jobs:
   check-courses:
     runs-on: ubuntu-latest
@@ -20,11 +16,11 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.x"
 
-      - name: Run Claude's course checker
+      - name: Run course checker
         env:
           SMS_GATEWAY: ${{ secrets.SMS_GATEWAY }}
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-        run: python course_check.py
+        run: python course_alert.py
