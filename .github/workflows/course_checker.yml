@@ -1,0 +1,26 @@
+name: Run Cornell Course Checker
+
+on:
+  workflow_dispatch:      # manual "Run workflow" button
+  schedule:
+    - cron: '*/5 * * * *' # every 5 minutes — GitHub Actions can't schedule more often than this,
+                           # and even 5-minute cron jobs can run a few minutes late during busy periods.
+
+jobs:
+  check-course:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Run Script
+        env:
+          SMS_GATEWAY: ${{ secrets.SMS_GATEWAY }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python course_check.py
